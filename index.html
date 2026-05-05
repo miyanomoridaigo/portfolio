@@ -575,7 +575,7 @@
     );
     if (!res.ok) throw new Error(`GitHub API: ${res.status}`);
     const all  = await res.json();
-    const data = all.filter(r => r.has_pages);
+    const data = all.filter(r => r.has_pages && r.name !== 'portfolio');
     sessionStorage.setItem(CACHE_KEY, JSON.stringify({ ts: Date.now(), data }));
     return data;
   }
