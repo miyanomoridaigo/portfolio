@@ -39,18 +39,13 @@
       text-align: center;
     }
 
-    .avatar-wrap {
-      display: inline-block;
-      position: relative;
-      margin-bottom: 20px;
-    }
-
     .avatar {
       width: 100px;
       height: 100px;
       border-radius: 50%;
       border: 3px solid var(--accent);
       box-shadow: 0 0 0 6px rgba(88,166,255,.15);
+      margin-bottom: 20px;
     }
 
     .header-name {
@@ -80,7 +75,7 @@
     }
     .github-link:hover { background: var(--surface2); border-color: var(--accent); }
 
-    .github-icon { width: 18px; height: 18px; fill: currentColor; }
+    .github-icon { width: 18px; height: 18px; fill: currentColor; vertical-align: middle; }
 
     /* ── Stats bar ── */
     .stats {
@@ -92,22 +87,9 @@
       background: var(--surface);
     }
 
-    .stat {
-      text-align: center;
-    }
-
-    .stat-value {
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: var(--accent);
-    }
-
-    .stat-label {
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: .06em;
-    }
+    .stat { text-align: center; }
+    .stat-value { font-size: 1.5rem; font-weight: 700; color: var(--accent); }
+    .stat-label { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: .06em; }
 
     /* ── Filter ── */
     .filter-bar {
@@ -118,6 +100,7 @@
       padding: 32px 24px 16px;
       max-width: 1100px;
       margin: 0 auto;
+      min-height: 60px;
     }
 
     .filter-btn {
@@ -130,7 +113,6 @@
       cursor: pointer;
       transition: all .2s;
     }
-
     .filter-btn:hover,
     .filter-btn.active {
       background: var(--accent);
@@ -161,15 +143,13 @@
       flex-direction: column;
       overflow: hidden;
       transition: transform .2s, border-color .2s, box-shadow .2s;
-      text-decoration: none;
-      color: inherit;
     }
-
     .card:hover {
       transform: translateY(-3px);
       border-color: var(--accent);
       box-shadow: 0 8px 24px rgba(88,166,255,.15);
     }
+    .card.hidden { display: none; }
 
     .card-preview {
       position: relative;
@@ -177,7 +157,6 @@
       overflow: hidden;
       background: var(--surface2);
     }
-
     .card-preview iframe {
       width: 200%;
       height: 200%;
@@ -186,7 +165,6 @@
       transform-origin: 0 0;
       pointer-events: none;
     }
-
     .card-preview-overlay {
       position: absolute;
       inset: 0;
@@ -238,7 +216,6 @@
       gap: 6px;
       margin-bottom: 14px;
     }
-
     .tag {
       font-size: 0.72rem;
       background: var(--tag-bg);
@@ -252,7 +229,6 @@
       display: flex;
       gap: 10px;
     }
-
     .btn {
       flex: 1;
       display: inline-flex;
@@ -265,22 +241,57 @@
       font-weight: 600;
       text-decoration: none;
       transition: all .2s;
-      cursor: pointer;
       border: none;
+      cursor: pointer;
     }
+    .btn-primary { background: var(--accent); color: #0d1117; }
+    .btn-primary:hover { background: var(--accent2); }
+    .btn-ghost { background: transparent; color: var(--text-muted); border: 1px solid var(--border); }
+    .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
 
-    .btn-primary {
+    /* ── Skeleton ── */
+    @keyframes shimmer {
+      0%   { background-position: -400px 0; }
+      100% { background-position: 400px 0; }
+    }
+    .skeleton {
+      background: linear-gradient(90deg, var(--surface2) 25%, #252d38 50%, var(--surface2) 75%);
+      background-size: 800px 100%;
+      animation: shimmer 1.4s infinite linear;
+      border-radius: 4px;
+    }
+    .skeleton-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .skeleton-preview { height: 180px; }
+    .skeleton-body { padding: 16px 18px 18px; }
+    .skeleton-line { height: 12px; margin-bottom: 10px; }
+    .skeleton-line.w-40  { width: 40%; }
+    .skeleton-line.w-70  { width: 70%; }
+    .skeleton-line.w-100 { width: 100%; }
+    .skeleton-line.h-16  { height: 16px; }
+
+    /* ── Error ── */
+    .error-box {
+      text-align: center;
+      padding: 60px 24px;
+      color: var(--text-muted);
+    }
+    .error-box p { margin-bottom: 16px; }
+    .retry-btn {
+      display: inline-block;
+      padding: 8px 20px;
       background: var(--accent);
       color: #0d1117;
+      border: none;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
     }
-    .btn-primary:hover { background: var(--accent2); }
-
-    .btn-ghost {
-      background: transparent;
-      color: var(--text-muted);
-      border: 1px solid var(--border);
-    }
-    .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
 
     /* ── Footer ── */
     footer {
@@ -291,10 +302,6 @@
       border-top: 1px solid var(--border);
     }
 
-    /* ── hidden card ── */
-    .card.hidden { display: none; }
-
-    /* ── Responsive ── */
     @media (max-width: 600px) {
       .header-name { font-size: 1.5rem; }
       .stats { gap: 24px; }
@@ -304,11 +311,8 @@
 </head>
 <body>
 
-<!-- ─────────── Header ─────────── -->
 <header>
-  <div class="avatar-wrap">
-    <img class="avatar" src="https://avatars.githubusercontent.com/u/264550264?v=4" alt="miyanomoridaigo" />
-  </div>
+  <img class="avatar" src="https://avatars.githubusercontent.com/u/264550264?v=4" alt="miyanomoridaigo" />
   <h1 class="header-name">miyanomoridaigo</h1>
   <p class="header-sub">Web apps · Creative tools · Firebase / Supabase</p>
   <a class="github-link" href="https://github.com/miyanomoridaigo" target="_blank" rel="noopener">
@@ -317,10 +321,9 @@
   </a>
 </header>
 
-<!-- ─────────── Stats ─────────── -->
 <div class="stats">
   <div class="stat">
-    <div class="stat-value">15</div>
+    <div class="stat-value" id="statCount">—</div>
     <div class="stat-label">Projects</div>
   </div>
   <div class="stat">
@@ -333,406 +336,268 @@
   </div>
 </div>
 
-<!-- ─────────── Filter ─────────── -->
-<div class="filter-bar">
-  <button class="filter-btn active" data-filter="all">All</button>
-  <button class="filter-btn" data-filter="writing">Writing Tools</button>
-  <button class="filter-btn" data-filter="goals">Goals & Planning</button>
-  <button class="filter-btn" data-filter="webnovel">Web Novel</button>
-  <button class="filter-btn" data-filter="utility">Utilities</button>
-  <button class="filter-btn" data-filter="learning">Learning</button>
-</div>
+<div class="filter-bar" id="filterBar"></div>
 
-<!-- ─────────── Grid ─────────── -->
 <div class="grid-wrap">
   <div class="grid" id="projectGrid">
-
-    <!-- 1. pyramid-dream -->
-    <div class="card" data-category="goals">
-      <div class="card-preview">
-        <iframe src="https://miyanomoridaigo.github.io/pyramid-dream/" loading="lazy" title="Pyramid Dream"></iframe>
-        <div class="card-preview-overlay"></div>
-      </div>
-      <div class="card-body">
-        <div class="card-category">Goals & Planning</div>
-        <div class="card-title">Pyramid Dream</div>
-        <div class="card-subtitle">夢のピラミッド</div>
-        <p class="card-desc">ピラミッド構造で目標を可視化・管理するアプリ。下位の小さな夢を積み上げて大きな目標へ向かう進捗をブロックで表示。Firebase によるクラウド同期に対応。</p>
-        <div class="card-tags">
-          <span class="tag">Goals</span><span class="tag">Visualization</span><span class="tag">Firebase</span>
-        </div>
-        <div class="card-links">
-          <a class="btn btn-primary" href="https://miyanomoridaigo.github.io/pyramid-dream/" target="_blank" rel="noopener">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-            開く
-          </a>
-          <a class="btn btn-ghost" href="https://github.com/miyanomoridaigo/pyramid-dream" target="_blank" rel="noopener">GitHub</a>
-        </div>
+    <!-- skeleton placeholders -->
+    <div class="skeleton-card">
+      <div class="skeleton skeleton-preview"></div>
+      <div class="skeleton-body">
+        <div class="skeleton skeleton-line w-40"></div>
+        <div class="skeleton skeleton-line w-70 h-16"></div>
+        <div class="skeleton skeleton-line w-100"></div>
+        <div class="skeleton skeleton-line w-100"></div>
       </div>
     </div>
-
-    <!-- 2. dream -->
-    <div class="card" data-category="goals">
-      <div class="card-preview">
-        <iframe src="https://miyanomoridaigo.github.io/dream/" loading="lazy" title="Dream Manager"></iframe>
-        <div class="card-preview-overlay"></div>
-      </div>
-      <div class="card-body">
-        <div class="card-category">Goals & Planning</div>
-        <div class="card-title">Dream Manager</div>
-        <div class="card-subtitle">将来の夢を管理</div>
-        <p class="card-desc">人生目標・夢を整理・追跡するアプリ。マイルストーン管理・習慣ログ・タイムライン・カレンダービューなど多彩な機能でゴールへの進捗を可視化。Firebase でデータ保存。</p>
-        <div class="card-tags">
-          <span class="tag">Goals</span><span class="tag">Habits</span><span class="tag">Firebase</span>
-        </div>
-        <div class="card-links">
-          <a class="btn btn-primary" href="https://miyanomoridaigo.github.io/dream/" target="_blank" rel="noopener">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-            開く
-          </a>
-          <a class="btn btn-ghost" href="https://github.com/miyanomoridaigo/dream" target="_blank" rel="noopener">GitHub</a>
-        </div>
+    <div class="skeleton-card">
+      <div class="skeleton skeleton-preview"></div>
+      <div class="skeleton-body">
+        <div class="skeleton skeleton-line w-40"></div>
+        <div class="skeleton skeleton-line w-70 h-16"></div>
+        <div class="skeleton skeleton-line w-100"></div>
+        <div class="skeleton skeleton-line w-100"></div>
       </div>
     </div>
-
-    <!-- 3. journal -->
-    <div class="card" data-category="goals">
-      <div class="card-preview">
-        <iframe src="https://miyanomoridaigo.github.io/journal/" loading="lazy" title="Creator Journal"></iframe>
-        <div class="card-preview-overlay"></div>
-      </div>
-      <div class="card-body">
-        <div class="card-category">Goals & Planning</div>
-        <div class="card-title">Creator Journal</div>
-        <div class="card-subtitle">クリエイターのための日課管理</div>
-        <p class="card-desc">タスク・習慣チェックリスト、睡眠記録、完了率グラフを備えたクリエイター向け日課トラッカー。Firebase 同期と JSON/CSV エクスポートに対応。</p>
-        <div class="card-tags">
-          <span class="tag">Habits</span><span class="tag">Tracker</span><span class="tag">Firebase</span>
-        </div>
-        <div class="card-links">
-          <a class="btn btn-primary" href="https://miyanomoridaigo.github.io/journal/" target="_blank" rel="noopener">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-            開く
-          </a>
-          <a class="btn btn-ghost" href="https://github.com/miyanomoridaigo/journal" target="_blank" rel="noopener">GitHub</a>
-        </div>
+    <div class="skeleton-card">
+      <div class="skeleton skeleton-preview"></div>
+      <div class="skeleton-body">
+        <div class="skeleton skeleton-line w-40"></div>
+        <div class="skeleton skeleton-line w-70 h-16"></div>
+        <div class="skeleton skeleton-line w-100"></div>
+        <div class="skeleton skeleton-line w-100"></div>
       </div>
     </div>
-
-    <!-- 4. graph-planner -->
-    <div class="card" data-category="goals">
-      <div class="card-preview">
-        <iframe src="https://miyanomoridaigo.github.io/graph-planner/" loading="lazy" title="24h Schedule Planner"></iframe>
-        <div class="card-preview-overlay"></div>
-      </div>
-      <div class="card-body">
-        <div class="card-category">Goals & Planning</div>
-        <div class="card-title">24h Schedule Planner</div>
-        <div class="card-subtitle">円形24時間スケジューラー</div>
-        <p class="card-desc">時計盤風の円形UIで24時間のスケジュールを可視化するプランナー。ドラッグで予定を追加し、色分けされた弧で表示。リアルタイム時刻インジケーター付き。</p>
-        <div class="card-tags">
-          <span class="tag">Scheduler</span><span class="tag">Visualization</span><span class="tag">Firebase</span>
-        </div>
-        <div class="card-links">
-          <a class="btn btn-primary" href="https://miyanomoridaigo.github.io/graph-planner/" target="_blank" rel="noopener">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-            開く
-          </a>
-          <a class="btn btn-ghost" href="https://github.com/miyanomoridaigo/graph-planner" target="_blank" rel="noopener">GitHub</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- 5. novelist_journal -->
-    <div class="card" data-category="writing">
-      <div class="card-preview">
-        <iframe src="https://miyanomoridaigo.github.io/novelist_journal/" loading="lazy" title="小説家のジャーナル"></iframe>
-        <div class="card-preview-overlay"></div>
-      </div>
-      <div class="card-body">
-        <div class="card-category">Writing Tools</div>
-        <div class="card-title">小説家のジャーナル</div>
-        <div class="card-subtitle">Novelist's Journal</div>
-        <p class="card-desc">小説家のための執筆記録アプリ。日次の文字数・気分・メモ管理、目標設定、アイデアバンク、タスクリスト、統計ダッシュボードを搭載。Supabase でクラウド同期。</p>
-        <div class="card-tags">
-          <span class="tag">Writing</span><span class="tag">Productivity</span><span class="tag">Supabase</span>
-        </div>
-        <div class="card-links">
-          <a class="btn btn-primary" href="https://miyanomoridaigo.github.io/novelist_journal/" target="_blank" rel="noopener">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-            開く
-          </a>
-          <a class="btn btn-ghost" href="https://github.com/miyanomoridaigo/novelist_journal" target="_blank" rel="noopener">GitHub</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- 6. novel-settings-in-chat -->
-    <div class="card" data-category="writing">
-      <div class="card-preview">
-        <iframe src="https://miyanomoridaigo.github.io/novel-settings-in-chat/" loading="lazy" title="Story Architect"></iframe>
-        <div class="card-preview-overlay"></div>
-      </div>
-      <div class="card-body">
-        <div class="card-category">Writing Tools</div>
-        <div class="card-title">Story Architect</div>
-        <div class="card-subtitle">物語企画チャット</div>
-        <p class="card-desc">チャット形式で物語を企画する対話型ツール。コンセプト→キャラクター→テーマ→構成→プロットの6フェーズを順番に設問形式で進める。三幕構成・起承転結などに対応。</p>
-        <div class="card-tags">
-          <span class="tag">Storytelling</span><span class="tag">Planning</span><span class="tag">Firebase</span>
-        </div>
-        <div class="card-links">
-          <a class="btn btn-primary" href="https://miyanomoridaigo.github.io/novel-settings-in-chat/" target="_blank" rel="noopener">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-            開く
-          </a>
-          <a class="btn btn-ghost" href="https://github.com/miyanomoridaigo/novel-settings-in-chat" target="_blank" rel="noopener">GitHub</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- 7. novelist-note -->
-    <div class="card" data-category="writing">
-      <div class="card-preview">
-        <iframe src="https://miyanomoridaigo.github.io/novelist-note/" loading="lazy" title="小説家のビジョン手帳"></iframe>
-        <div class="card-preview-overlay"></div>
-      </div>
-      <div class="card-body">
-        <div class="card-category">Writing Tools</div>
-        <div class="card-title">小説家のビジョン手帳</div>
-        <div class="card-subtitle">Novelist's Vision Notebook</div>
-        <p class="card-desc">テーマ・感情・動機・理想の読者を整理するビジョン手帳。複数プロジェクトを管理でき、Firebase Firestore へリアルタイム自動保存。原稿用紙風の暖かいデザイン。</p>
-        <div class="card-tags">
-          <span class="tag">Writing</span><span class="tag">Notebook</span><span class="tag">Firebase</span>
-        </div>
-        <div class="card-links">
-          <a class="btn btn-primary" href="https://miyanomoridaigo.github.io/novelist-note/" target="_blank" rel="noopener">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-            開く
-          </a>
-          <a class="btn btn-ghost" href="https://github.com/miyanomoridaigo/novelist-note" target="_blank" rel="noopener">GitHub</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- 8. myeditor -->
-    <div class="card" data-category="writing">
-      <div class="card-preview">
-        <iframe src="https://miyanomoridaigo.github.io/myeditor/" loading="lazy" title="縦書きエディタ"></iframe>
-        <div class="card-preview-overlay"></div>
-      </div>
-      <div class="card-body">
-        <div class="card-category">Writing Tools</div>
-        <div class="card-title">縦書きエディタ</div>
-        <div class="card-subtitle">Tategaki Editor</div>
-        <p class="card-desc">縦書き・横書きを切り替えられるローカルファイルエディタ。File System Access API でフォルダを直接編集。ダーク/ライト/セピアテーマ、空白可視化、マルチタブに対応。</p>
-        <div class="card-tags">
-          <span class="tag">Editor</span><span class="tag">縦書き</span><span class="tag">File API</span>
-        </div>
-        <div class="card-links">
-          <a class="btn btn-primary" href="https://miyanomoridaigo.github.io/myeditor/" target="_blank" rel="noopener">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-            開く
-          </a>
-          <a class="btn btn-ghost" href="https://github.com/miyanomoridaigo/myeditor" target="_blank" rel="noopener">GitHub</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- 9. world-settings -->
-    <div class="card" data-category="writing">
-      <div class="card-preview">
-        <iframe src="https://miyanomoridaigo.github.io/world-settings/" loading="lazy" title="WorldForge"></iframe>
-        <div class="card-preview-overlay"></div>
-      </div>
-      <div class="card-body">
-        <div class="card-category">Writing Tools</div>
-        <div class="card-title">WorldForge</div>
-        <div class="card-subtitle">世界観設定ツール</div>
-        <p class="card-desc">小説・創作の世界観を地理・歴史・社会・魔法など13カテゴリで整理するツール。進捗バー付きでまとめの完成度を確認でき、Markdown エクスポートと Supabase 同期が可能。</p>
-        <div class="card-tags">
-          <span class="tag">Worldbuilding</span><span class="tag">Supabase</span><span class="tag">Markdown</span>
-        </div>
-        <div class="card-links">
-          <a class="btn btn-primary" href="https://miyanomoridaigo.github.io/world-settings/" target="_blank" rel="noopener">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-            開く
-          </a>
-          <a class="btn btn-ghost" href="https://github.com/miyanomoridaigo/world-settings" target="_blank" rel="noopener">GitHub</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- 10. high_concept_idea_generator -->
-    <div class="card" data-category="writing">
-      <div class="card-preview">
-        <iframe src="https://miyanomoridaigo.github.io/high_concept_idea_generator/" loading="lazy" title="ハイコンセプト アイデア生成ワークブック"></iframe>
-        <div class="card-preview-overlay"></div>
-      </div>
-      <div class="card-body">
-        <div class="card-category">Writing Tools</div>
-        <div class="card-title">ハイコンセプト<br>アイデア生成ワークブック</div>
-        <div class="card-subtitle">High Concept Idea Generator</div>
-        <p class="card-desc">SF・ファンタジー小説のコアアイデアを生み出す10ステップのワークブック。「What if?」思考法、キャラクター設計、世界観ルール設定、15分フリーライティングタイマー付き。</p>
-        <div class="card-tags">
-          <span class="tag">Brainstorming</span><span class="tag">SciFi</span><span class="tag">Workbook</span>
-        </div>
-        <div class="card-links">
-          <a class="btn btn-primary" href="https://miyanomoridaigo.github.io/high_concept_idea_generator/" target="_blank" rel="noopener">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-            開く
-          </a>
-          <a class="btn btn-ghost" href="https://github.com/miyanomoridaigo/high_concept_idea_generator" target="_blank" rel="noopener">GitHub</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- 11. tiraura -->
-    <div class="card" data-category="webnovel">
-      <div class="card-preview">
-        <iframe src="https://miyanomoridaigo.github.io/tiraura/" loading="lazy" title="Web小説"></iframe>
-        <div class="card-preview-overlay"></div>
-      </div>
-      <div class="card-body">
-        <div class="card-category">Web Novel</div>
-        <div class="card-title">Web小説サイト</div>
-        <div class="card-subtitle">Web Novel Catalog</div>
-        <p class="card-desc">Web小説のカタログ＆リーダーサイト。タグでフィルター、タイトル・作者・あらすじ検索、ソート機能付き。ダーク/ライトテーマ切替対応のレスポンシブデザイン。</p>
-        <div class="card-tags">
-          <span class="tag">Web Novel</span><span class="tag">Reader</span><span class="tag">日本語</span>
-        </div>
-        <div class="card-links">
-          <a class="btn btn-primary" href="https://miyanomoridaigo.github.io/tiraura/" target="_blank" rel="noopener">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-            開く
-          </a>
-          <a class="btn btn-ghost" href="https://github.com/miyanomoridaigo/tiraura" target="_blank" rel="noopener">GitHub</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- 12. market-checker -->
-    <div class="card" data-category="webnovel">
-      <div class="card-preview">
-        <iframe src="https://miyanomoridaigo.github.io/market-checker/" loading="lazy" title="カクヨム ジャンル別人気ランキング"></iframe>
-        <div class="card-preview-overlay"></div>
-      </div>
-      <div class="card-body">
-        <div class="card-category">Web Novel</div>
-        <div class="card-title">カクヨム ジャンル別<br>人気ランキング</div>
-        <div class="card-subtitle">Kakuyomu Genre Rankings Dashboard</div>
-        <p class="card-desc">カクヨムのジャンル別ランキングを集計・分析するダッシュボード。棒グラフ・ドーナツグラフ・トレンドグラフで傾向を可視化し、Python スクリプトで毎日自動収集に対応。</p>
-        <div class="card-tags">
-          <span class="tag">Analytics</span><span class="tag">Kakuyomu</span><span class="tag">Firebase</span>
-        </div>
-        <div class="card-links">
-          <a class="btn btn-primary" href="https://miyanomoridaigo.github.io/market-checker/" target="_blank" rel="noopener">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-            開く
-          </a>
-          <a class="btn btn-ghost" href="https://github.com/miyanomoridaigo/market-checker" target="_blank" rel="noopener">GitHub</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- 13. voice-recorder -->
-    <div class="card" data-category="utility">
-      <div class="card-preview">
-        <iframe src="https://miyanomoridaigo.github.io/voice-recorder/" loading="lazy" title="Voice Recorder"></iframe>
-        <div class="card-preview-overlay"></div>
-      </div>
-      <div class="card-body">
-        <div class="card-category">Utilities</div>
-        <div class="card-title">Voice Recorder</div>
-        <div class="card-subtitle">ブラウザ録音 + Cloudflare R2</div>
-        <p class="card-desc">ブラウザのマイクで録音し、Cloudflare R2 オブジェクトストレージへ自動アップロードするアプリ。日付別ファイルブラウザで録音の再生・ダウンロード・管理が可能。</p>
-        <div class="card-tags">
-          <span class="tag">Audio</span><span class="tag">Cloudflare R2</span><span class="tag">Storage</span>
-        </div>
-        <div class="card-links">
-          <a class="btn btn-primary" href="https://miyanomoridaigo.github.io/voice-recorder/" target="_blank" rel="noopener">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-            開く
-          </a>
-          <a class="btn btn-ghost" href="https://github.com/miyanomoridaigo/voice-recorder" target="_blank" rel="noopener">GitHub</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- 14. mywiki -->
-    <div class="card" data-category="utility">
-      <div class="card-preview">
-        <iframe src="https://miyanomoridaigo.github.io/mywiki/" loading="lazy" title="My Wiki"></iframe>
-        <div class="card-preview-overlay"></div>
-      </div>
-      <div class="card-body">
-        <div class="card-category">Utilities</div>
-        <div class="card-title">My Wiki</div>
-        <div class="card-subtitle">パーソナル Wiki</div>
-        <p class="card-desc">Markdown・WikiLinks 対応のパーソナルWikiアプリ。GitHub Gist / Firebase / Supabase の4バックエンドで同期可能。ページ関係グラフ、全文検索、キーボードショートカット付き。</p>
-        <div class="card-tags">
-          <span class="tag">Wiki</span><span class="tag">Markdown</span><span class="tag">Multi-backend</span>
-        </div>
-        <div class="card-links">
-          <a class="btn btn-primary" href="https://miyanomoridaigo.github.io/mywiki/" target="_blank" rel="noopener">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-            開く
-          </a>
-          <a class="btn btn-ghost" href="https://github.com/miyanomoridaigo/mywiki" target="_blank" rel="noopener">GitHub</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- 15. think_and_grow_rich -->
-    <div class="card" data-category="learning">
-      <div class="card-preview">
-        <iframe src="https://miyanomoridaigo.github.io/think_and_grow_rich/" loading="lazy" title="思考は現実化する 完全履修コース"></iframe>
-        <div class="card-preview-overlay"></div>
-      </div>
-      <div class="card-body">
-        <div class="card-category">Learning</div>
-        <div class="card-title">思考は現実化する<br>完全履修コース</div>
-        <div class="card-subtitle">Think and Grow Rich — Complete Course</div>
-        <p class="card-desc">ナポレオン・ヒル著「思考は現実化する」の13原則を体系的に学ぶインタラクティブ学習プラットフォーム。演習問題・ワークシート・小テストで理解を深め、進捗をローカル保存。</p>
-        <div class="card-tags">
-          <span class="tag">Self-Help</span><span class="tag">E-Learning</span><span class="tag">LocalStorage</span>
-        </div>
-        <div class="card-links">
-          <a class="btn btn-primary" href="https://miyanomoridaigo.github.io/think_and_grow_rich/" target="_blank" rel="noopener">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-            開く
-          </a>
-          <a class="btn btn-ghost" href="https://github.com/miyanomoridaigo/think_and_grow_rich" target="_blank" rel="noopener">GitHub</a>
-        </div>
-      </div>
-    </div>
-
-  </div><!-- /.grid -->
-</div><!-- /.grid-wrap -->
+  </div>
+</div>
 
 <footer>
   <p>Built with GitHub Pages · <a href="https://github.com/miyanomoridaigo" style="color:var(--accent);text-decoration:none;">miyanomoridaigo</a></p>
 </footer>
 
 <script>
-  // ── Filter ──
-  const btns = document.querySelectorAll('.filter-btn');
-  const cards = document.querySelectorAll('#projectGrid .card');
+  const GITHUB_USER = 'miyanomoridaigo';
+  const CACHE_KEY   = 'portfolio_repos_v1';
+  const CACHE_TTL   = 3600 * 1000; // 1 hour
 
-  btns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      btns.forEach(b => b.classList.remove('active'));
+  // ── Known titles (repo name → display title) ──────────────────────────────
+  const TITLES = {
+    'pyramid-dream':            'Pyramid Dream',
+    'tiraura':                  'Web小説サイト',
+    'dream':                    'Dream Manager',
+    'journal':                  'Creator Journal',
+    'graph-planner':            '24h Schedule Planner',
+    'voice-recorder':           'Voice Recorder',
+    'market-checker':           'カクヨム ジャンル別人気ランキング',
+    'mywiki':                   'My Wiki',
+    'novelist_journal':         '小説家のジャーナル',
+    'novel-settings-in-chat':   'Story Architect',
+    'novelist-note':            '小説家のビジョン手帳',
+    'myeditor':                 '縦書きエディタ',
+    'world-settings':           'WorldForge',
+    'think_and_grow_rich':      '思考は現実化する 完全履修コース',
+    'high_concept_idea_generator': 'ハイコンセプト アイデア生成ワークブック',
+  };
+
+  // ── Known subtitles ───────────────────────────────────────────────────────
+  const SUBTITLES = {
+    'pyramid-dream':            '夢のピラミッド',
+    'tiraura':                  'Web Novel Catalog',
+    'dream':                    '将来の夢を管理',
+    'journal':                  'クリエイターのための日課管理',
+    'graph-planner':            '円形24時間スケジューラー',
+    'voice-recorder':           'ブラウザ録音 + Cloudflare R2',
+    'market-checker':           'Kakuyomu Genre Rankings Dashboard',
+    'mywiki':                   'パーソナル Wiki',
+    'novelist_journal':         'Novelist\'s Journal',
+    'novel-settings-in-chat':   '物語企画チャット',
+    'novelist-note':            'Novelist\'s Vision Notebook',
+    'myeditor':                 'Tategaki Editor',
+    'world-settings':           '世界観設定ツール',
+    'think_and_grow_rich':      'Think and Grow Rich — Complete Course',
+    'high_concept_idea_generator': 'High Concept Idea Generator',
+  };
+
+  // ── Fallback descriptions (used when GitHub description is null) ──────────
+  const DESCRIPTIONS = {
+    'pyramid-dream':            'ピラミッド構造で目標を可視化・管理するアプリ。下位の小さな夢を積み上げて大きな目標へ向かう進捗をブロックで表示。Firebase によるクラウド同期に対応。',
+    'tiraura':                  'Web小説のカタログ＆リーダーサイト。タグでフィルター、タイトル・作者・あらすじ検索、ソート機能付き。ダーク/ライトテーマ切替対応のレスポンシブデザイン。',
+    'dream':                    '人生目標・夢を整理・追跡するアプリ。マイルストーン管理・習慣ログ・タイムライン・カレンダービューなど多彩な機能でゴールへの進捗を可視化。Firebase でデータ保存。',
+    'journal':                  'タスク・習慣チェックリスト、睡眠記録、完了率グラフを備えたクリエイター向け日課トラッカー。Firebase 同期と JSON/CSV エクスポートに対応。',
+    'graph-planner':            '時計盤風の円形UIで24時間のスケジュールを可視化するプランナー。ドラッグで予定を追加し、色分けされた弧で表示。リアルタイム時刻インジケーター付き。',
+    'voice-recorder':           'ブラウザのマイクで録音し、Cloudflare R2 オブジェクトストレージへ自動アップロードするアプリ。日付別ファイルブラウザで録音の再生・ダウンロード・管理が可能。',
+    'market-checker':           'カクヨムのジャンル別ランキングを集計・分析するダッシュボード。棒グラフ・ドーナツグラフ・トレンドグラフで傾向を可視化し、Python スクリプトで毎日自動収集に対応。',
+    'mywiki':                   'Markdown・WikiLinks 対応のパーソナルWikiアプリ。GitHub Gist / Firebase / Supabase の4バックエンドで同期可能。ページ関係グラフ、全文検索、キーボードショートカット付き。',
+    'novelist_journal':         '小説家のための執筆記録アプリ。日次の文字数・気分・メモ管理、目標設定、アイデアバンク、タスクリスト、統計ダッシュボードを搭載。Supabase でクラウド同期。',
+    'novel-settings-in-chat':   'チャット形式で物語を企画する対話型ツール。コンセプト→キャラクター→テーマ→構成→プロットの6フェーズを順番に設問形式で進める。三幕構成・起承転結などに対応。',
+    'novelist-note':            'テーマ・感情・動機・理想の読者を整理するビジョン手帳。複数プロジェクトを管理でき、Firebase Firestore へリアルタイム自動保存。原稿用紙風の暖かいデザイン。',
+    'myeditor':                 '縦書き・横書きを切り替えられるローカルファイルエディタ。File System Access API でフォルダを直接編集。ダーク/ライト/セピアテーマ、空白可視化、マルチタブに対応。',
+    'world-settings':           '小説・創作の世界観を地理・歴史・社会・魔法など13カテゴリで整理するツール。進捗バー付きでまとめの完成度を確認でき、Markdown エクスポートと Supabase 同期が可能。',
+    'think_and_grow_rich':      'ナポレオン・ヒル著「思考は現実化する」の13原則を体系的に学ぶインタラクティブ学習プラットフォーム。演習問題・ワークシート・小テストで理解を深め、進捗をローカル保存。',
+    'high_concept_idea_generator': 'SF・ファンタジー小説のコアアイデアを生み出す10ステップのワークブック。「What if?」思考法、キャラクター設計、世界観ルール設定、15分フリーライティングタイマー付き。',
+  };
+
+  // ── Tags ─────────────────────────────────────────────────────────────────
+  const TAGS = {
+    'pyramid-dream':            ['Goals', 'Visualization', 'Firebase'],
+    'tiraura':                  ['Web Novel', 'Reader', '日本語'],
+    'dream':                    ['Goals', 'Habits', 'Firebase'],
+    'journal':                  ['Habits', 'Tracker', 'Firebase'],
+    'graph-planner':            ['Scheduler', 'Visualization', 'Firebase'],
+    'voice-recorder':           ['Audio', 'Cloudflare R2', 'Storage'],
+    'market-checker':           ['Analytics', 'Kakuyomu', 'Firebase'],
+    'mywiki':                   ['Wiki', 'Markdown', 'Multi-backend'],
+    'novelist_journal':         ['Writing', 'Productivity', 'Supabase'],
+    'novel-settings-in-chat':   ['Storytelling', 'Planning', 'Firebase'],
+    'novelist-note':            ['Writing', 'Notebook', 'Firebase'],
+    'myeditor':                 ['Editor', '縦書き', 'File API'],
+    'world-settings':           ['Worldbuilding', 'Supabase', 'Markdown'],
+    'think_and_grow_rich':      ['Self-Help', 'E-Learning', 'LocalStorage'],
+    'high_concept_idea_generator': ['Brainstorming', 'SciFi', 'Workbook'],
+  };
+
+  // ── Category map (manual overrides) ──────────────────────────────────────
+  const CATEGORY_MAP = {
+    'pyramid-dream':            'goals',
+    'tiraura':                  'webnovel',
+    'dream':                    'goals',
+    'journal':                  'goals',
+    'graph-planner':            'goals',
+    'voice-recorder':           'utility',
+    'market-checker':           'webnovel',
+    'mywiki':                   'utility',
+    'novelist_journal':         'writing',
+    'novel-settings-in-chat':   'writing',
+    'novelist-note':            'writing',
+    'myeditor':                 'writing',
+    'world-settings':           'writing',
+    'think_and_grow_rich':      'learning',
+    'high_concept_idea_generator': 'writing',
+  };
+
+  const CATEGORY_LABELS = {
+    goals:    'Goals & Planning',
+    writing:  'Writing Tools',
+    webnovel: 'Web Novel',
+    utility:  'Utilities',
+    learning: 'Learning',
+    other:    'Other',
+  };
+
+  // ── Auto-detect category from repo name ──────────────────────────────────
+  function detectCategory(name) {
+    if (CATEGORY_MAP[name]) return CATEGORY_MAP[name];
+    const n = name.toLowerCase();
+    if (/novelist|novel|editor|story|world|high.concept/.test(n)) return 'writing';
+    if (/dream|journal|planner|graph/.test(n))                     return 'goals';
+    if (/tiraura|market|kakuyomu/.test(n))                         return 'webnovel';
+    if (/wiki|voice/.test(n))                                      return 'utility';
+    if (/think|grow|rich|learn/.test(n))                           return 'learning';
+    return 'other';
+  }
+
+  // ── Format repo name as title ─────────────────────────────────────────────
+  function formatTitle(name) {
+    if (TITLES[name]) return TITLES[name];
+    return name.replace(/[-_]/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+  }
+
+  // ── External link SVG ─────────────────────────────────────────────────────
+  const LINK_ICON = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>`;
+
+  // ── Render a single card ──────────────────────────────────────────────────
+  function renderCard(repo) {
+    const name      = repo.name;
+    const pagesUrl  = `https://${GITHUB_USER}.github.io/${name}/`;
+    const repoUrl   = repo.html_url;
+    const title     = formatTitle(name);
+    const subtitle  = SUBTITLES[name] || '';
+    const desc      = repo.description || DESCRIPTIONS[name] || '（説明なし）';
+    const category  = detectCategory(name);
+    const catLabel  = CATEGORY_LABELS[category] || category;
+    const tags      = TAGS[name] || (repo.language ? [repo.language] : []);
+    const tagHtml   = tags.map(t => `<span class="tag">${t}</span>`).join('');
+
+    return `
+      <div class="card" data-category="${category}">
+        <div class="card-preview">
+          <iframe src="${pagesUrl}" loading="lazy" title="${title}"></iframe>
+          <div class="card-preview-overlay"></div>
+        </div>
+        <div class="card-body">
+          <div class="card-category">${catLabel}</div>
+          <div class="card-title">${title}</div>
+          ${subtitle ? `<div class="card-subtitle">${subtitle}</div>` : ''}
+          <p class="card-desc">${desc}</p>
+          ${tagHtml ? `<div class="card-tags">${tagHtml}</div>` : ''}
+          <div class="card-links">
+            <a class="btn btn-primary" href="${pagesUrl}" target="_blank" rel="noopener">${LINK_ICON} 開く</a>
+            <a class="btn btn-ghost"   href="${repoUrl}"  target="_blank" rel="noopener">GitHub</a>
+          </div>
+        </div>
+      </div>`;
+  }
+
+  // ── Render filter buttons ─────────────────────────────────────────────────
+  function renderFilters(repos) {
+    const used = new Set(repos.map(r => detectCategory(r.name)));
+    const bar  = document.getElementById('filterBar');
+    const all  = ['goals', 'writing', 'webnovel', 'utility', 'learning', 'other']
+      .filter(c => used.has(c));
+
+    bar.innerHTML = `<button class="filter-btn active" data-filter="all">All</button>` +
+      all.map(c => `<button class="filter-btn" data-filter="${c}">${CATEGORY_LABELS[c]}</button>`).join('');
+
+    bar.addEventListener('click', e => {
+      const btn = e.target.closest('.filter-btn');
+      if (!btn) return;
+      bar.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       const filter = btn.dataset.filter;
-      cards.forEach(card => {
-        if (filter === 'all' || card.dataset.category === filter) {
-          card.classList.remove('hidden');
-        } else {
-          card.classList.add('hidden');
-        }
+      document.querySelectorAll('#projectGrid .card').forEach(card => {
+        card.classList.toggle('hidden', filter !== 'all' && card.dataset.category !== filter);
       });
     });
-  });
+  }
+
+  // ── Fetch repos (with sessionStorage cache) ───────────────────────────────
+  async function fetchRepos() {
+    const cached = sessionStorage.getItem(CACHE_KEY);
+    if (cached) {
+      try {
+        const { ts, data } = JSON.parse(cached);
+        if (Date.now() - ts < CACHE_TTL) return data;
+      } catch (_) { /* ignore */ }
+    }
+
+    const res = await fetch(
+      `https://api.github.com/users/${GITHUB_USER}/repos?per_page=100&sort=updated`
+    );
+    if (!res.ok) throw new Error(`GitHub API: ${res.status}`);
+    const all  = await res.json();
+    const data = all.filter(r => r.has_pages);
+    sessionStorage.setItem(CACHE_KEY, JSON.stringify({ ts: Date.now(), data }));
+    return data;
+  }
+
+  // ── Main ──────────────────────────────────────────────────────────────────
+  async function init() {
+    const grid = document.getElementById('projectGrid');
+    try {
+      const repos = await fetchRepos();
+      document.getElementById('statCount').textContent = repos.length;
+      grid.innerHTML = repos.map(renderCard).join('');
+      renderFilters(repos);
+    } catch (err) {
+      grid.innerHTML = `
+        <div class="error-box" style="grid-column:1/-1">
+          <p>リポジトリの取得に失敗しました。<br><small>${err.message}</small></p>
+          <button class="retry-btn" onclick="init()">再試行</button>
+        </div>`;
+    }
+  }
+
+  init();
 </script>
 </body>
 </html>
